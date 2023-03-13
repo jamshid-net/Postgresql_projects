@@ -23,4 +23,16 @@ create or replace function max_min_price_product(out max_unit_price real, out mi
 select max(unit_price),min(unit_price) from products 
 $$ language sql
 select * from max_min_price_product()
-select products from products
+select * from products 
+
+select product_id, product_name from products
+
+
+
+select * from products where product_id = 5 
+--Procedures-- 
+
+
+
+
+

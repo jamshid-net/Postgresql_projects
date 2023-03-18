@@ -2,7 +2,7 @@ create view simple_view as
 select * from orders 
 where freight> 20
 
-
+select * from simple_view
 
 select customer_id, avg(freight) 
 from orders 
@@ -11,7 +11,7 @@ group by customer_id
 
 
 
-create view complec_view  as
+create view complex_view  as
 select s.company_name,p.product_name, p.unit_price,  
 case 
 when unit_price < 20 then 'Low price'
@@ -22,9 +22,12 @@ from products p
 join suppliers s using(supplier_id) 
 
 
+select product_id from products
+union
+select product_id from order_details
+
 
 create view inline_view as 
-
 select customer_id, avg(freight) as avg_of_freight 
 from (  
 	select *
@@ -32,7 +35,7 @@ from (
 ) ord
 group by customer_id  
 
-create MATERIALIZED VIEW my_mater_view as 
+create  MATERIALIZED VIEW my_mater_view as 
 select c.contact_name,coalesce(nullif(c.country,s.country),'SAME COUNTRY') as customer_country, s.country as supplier_country
 from customers c
 join orders o using(customer_id)
@@ -46,6 +49,10 @@ with no data
 
 select * from orders
 
+REFRESH MATERIALIZED VIEW my_mater_view
+
+select * from my_mater_view
+
 --. Managing PostgreSQL Views-- 
 create or replace view upatable_exaple as 
 select customer_id, ship_country
@@ -54,8 +61,10 @@ where ship_country = 'Mexico'
 
 select * from upatable_exaple 
 
+select * from customers
+
 insert into upatable_exaple(customer_id,ship_country) 
-values('CENTC','Mexico')
+values('BLAUS','Mexico')
 
 
 

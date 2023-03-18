@@ -2,6 +2,8 @@ create or replace function avg_of_freight() returns float8 as $$
 select avg(freight) from orders
 $$ language sql
 
+select avg_of_freight()
+
 create or replace function avg_price_of_product_usa() returns float8 as $$ 
 select avg(p.unit_price) 
 from products p 

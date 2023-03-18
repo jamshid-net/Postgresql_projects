@@ -1,9 +1,10 @@
 
+select * from avg_each_price_product()
 
 CREATE OR REPLACE FUNCTION  avg_each_price_product()
 RETURNS TABLE (Contact_name varchar(40),avg_price float) AS $$
 BEGIN
-  RETURN QUERY select  c.contact_name as Contact_name,avg(p.unit_price) as avg_price
+  RETURN QUERY select  c.contact_name,avg(p.unit_price)
 		from orders o 
 		natural join customers c
 		natural join order_details 
@@ -27,7 +28,7 @@ select * from insert_person('Bob',22);
 select * from delete_person(2);  
 
 
-
+select * from person
 
 
 
@@ -61,8 +62,8 @@ begin
   end;
   $$ language plpgsql; 
   
-  
-  drop function crud_person
+select * from person
+ 
 create or replace function crud_person
 (operation varchar(20) default 'select',p_id integer default 0,p_name varchar(50) default '',p_age integer default 0) 
 returns table (id INT, name VARCHAR(50),age integer) as $$ 
@@ -78,7 +79,7 @@ when operation = 'delete' then return query select * from delete_person(p_id);
   $$ language plpgsql; 
 
   
-select * from crud_person('insert',0,'Jimmy',35);
+select * from crud_person('delete',5,'fff');
   
 
 

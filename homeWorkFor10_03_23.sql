@@ -174,6 +174,18 @@ select * from products
 select * from customers
 select * from suppliers
 
+select coalesce(nullif(c.country, s.country)),s.country
+from customers c 
+join orders o using(customer_id)
+left join order_details od
+on o.order_id = od.order_id 
+left join products p
+on p.product_id = od.product_id 
+left join suppliers s using(supplier_id)
+
+
+select customer_id, ship_name, coalesce(ship_region,'TOPILMADI') as REGION from orders
+
 
 select c.contact_name,coalesce(nullif(c.country,s.country),'SAME COUNTRY') as customer_country, s.country as supplier_country
 from customers c
